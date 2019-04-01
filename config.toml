@@ -1,8 +1,8 @@
 theme = "docuapi"
 themesdir = "themes"
 languageCode = "en-us"
-baseurl = "https://docuapi.netlify.com/"
-title = "DocuAPI Example Site"
+baseurl = "https://mangal-wg/mangal-api/"
+title = "API Documentation - Mangal.io"
 
 # Code higlighting settings
 pygmentsCodefences = true
@@ -19,17 +19,11 @@ search = true
   
 # Configure the language example tabs.
 [[params.language_tabs]]
-key = "go"
-name = "Go" 
+key = "jl"
+name = "Julia" 
 [[params.language_tabs]]
-key = "shell"
-name = "Shell" 
-[[params.language_tabs]]
-key = "ruby"
-name = "Ruby"
-[[params.language_tabs]]
-key = "python"
-name = "Python"
+key = "r"
+name = "R"
 [[params.language_tabs]]
 key = "javascript"
 name = "Javascript"
@@ -40,13 +34,13 @@ name = "Javascript"
 [languages.en]
 languageName = "English"
 weight = 2
-title = "DocuAPI Example Site"
+title = "API Documentation"
 
 # Left sidebar footer items. Use HTMl or Markdown.
 toc_footers = [ 
-"<a href='#'>Sign Up for a Developer Key</a>",
-"Documentation Powered by [DocuAPI](https://github.com/bep/docuapi)",
-"Hugo Theme by [bep](https://github.com/bep)"
+"Maintained by [Steve Vissault](http://steveviss.github.io/)",
+"Documentation generated with [DocuAPI](https://github.com/bep/docuapi)",
+"Theme by [bep](https://github.com/bep)"
 ]
 [languages.en.blackfriday]
 angledQuotes = false
