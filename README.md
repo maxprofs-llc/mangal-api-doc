@@ -7,3 +7,10 @@ Source code generating content of mangal-wg/mangal-api/docs
 ```
 hugo serve
 ```
+
+
+## Deploy
+
+```
+hugo -d ../mangal-api/docs
+```
