@@ -1,212 +1,221 @@
 ---
 weight: 10
 title: API Reference
+base: test
 ---
 
-# Introduction
+# API Documentation
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-**This example API documentation page was created with [DocuAPI](https://github.com/bep/docuapi/), a multilingual documentation theme for the static site generator [Hugo](http://gohugo.io/).** 
+Application Programming Interface (API) to support [Mangal.io](http://poisotlab.biol.umontreal.ca/#/), an ecological interactions database. 
 
 # Authentication
 
-> To authorize, use this code:
+Authentification is mandatory only for `POST`, `PUT` & `DELETE` operations. We use the ORCID authentification service. Registration is open and accessible at [http://poisotlab.biol.umontreal.ca/auth](http://poisotlab.biol.umontreal.ca/auth). We are currently developing templates to facilitate the conversion and publication of new ecological networks into mangal.
 
-```go
-package main
+`GET` doesn't require authentification. If you have any question, please email me steve.vissault[at]usherbrooke.ca
 
-import "github.com/bep/kittn/auth"
 
-func main() {
-	api := auth.Authorize("meowmeowmeow")
+# Endpoints
 
-	// Just to make it compile
-	_ = api
-}
-```
+| Endpoint | Content description                                                     |
+|----------|-------------------------------------------------------------------|
+| `\reference`   | Original publications (doi, bibtex, authors etc.)                                              |
+| `\dataset`      | Collection of networks |
+| `\network`   | Network collected at specific location and date.                                              |
+| `\node`  | Individu, taxa or population involved in the network                |
+| `\interaction`  | Directed or undirected interaction among two nodes                |
+| `\taxonomy`  | Homogeneized taxonomy / unique identifier from gbif, eol, col, itis, bold, ncbi            |
+| `\trait`  |     Trait variables from a node or taxon (generic traits)           |
+| `\environment`  | Environment variables attached to a network             |
+| `\attribute`  | Variables use to describe interaction, trait, environment            |
 
-```ruby
-require 'kittn'
+[Download DB diagram](https://raw.githubusercontent.com/mangal-wg/mangal-api/master/mangal_dev.png)
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+# Generic parameters
 
-```python
-import kittn
+Generic parameters applicable for `GET` method
 
-api = kittn.authorize('meowmeowmeow')
-```
+| Parameter    | Description | Exemple                                                                      |
+|--------------|---------|----------------------------------------------------------------------------------|
+| `q` | Full search within the table, **only working on string columns**.     | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?q=%insect%`                              |
+| `sort`    | Sort specific column    | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?sort=-id` |
+| `page`    | Request specific page    | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?page=0` |
+| `count`    | Number of entries returned (max. 1000)    | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?count=50` |
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+# Datasets
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```go
-package main
-
-import "github.com/bep/kittn/auth"
-
-func main() {
-	api := auth.Authorize("meowmeowmeow")
-
-	_ = api.GetKittens()
-}
-```
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
+## Get all datasets
 
 ```javascript
-const kittn = require('kittn');
+import axios
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+axio.get('http://poisotlab.biol.umontreal.ca/api/v2/dataset')
+  .then((res) => {
+    console.log(res.data)
+  })
+
+```
+```shell
+curl "http://poisotlab.biol.umontreal.ca/api/v2/dataset"
 ```
 
-> The above command returns JSON structured like this:
+> Output exemple
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```go
-package main
-
-import "github.com/bep/kittn/auth"
-
-func main() {
-	api := auth.Authorize("meowmeowmeow")
-
-	_ = api.GetKitten(2)
-}
-```
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
+[{
   "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
+  "name": "howking_1968",
+  "date": "1963-06-01T04:00:00.000Z",
+  "description": "Insect activity recorded 
+    on flower at Lake Hazen, Ellesmere Island, 
+    N.W.T., Canada",
+  "public": true,
+  "created_at": "2019-02-22T15:39:00.427Z",
+  "updated_at": "2019-02-22T15:39:00.427Z",
+  "ref_id": 2,
+  "user_id": 2
+}, {
+  "id": 7,
+  "name": "lundgren_olesen_2005",
+  "date": "2002-08-04T04:00:00.000Z",
+  "description": "Pollnator activity 
+    recorded on flowers, Uummannaq Island, Greenland, Danmark",
+  "public": true,
+  "created_at": "2019-02-22T20:04:25.322Z",
+  "updated_at": "2019-02-22T20:04:25.322Z",
+  "ref_id": 7,
+  "user_id": 2
+}]
 ```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+List all datasets available in mangal
 
-### URL Parameters
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset`
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+Request specific dataset `id`
 
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset/:id`
+
+### Parameters
+
+| Parameter    | Description | Exemple                                                                      |
+|--------------|---------|----------------------------------------------------------------------------------|
+| `name` | Search by unique name (`firstAuthor_pubYear`) | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?name=howking_1968`                             |
+| `date` | Search by creation date -- format `YYYY-mm-dd` | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?date=1963-06-01`                             |
+| `description`    | Full text search in description    | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?description=%Ellesmere%`      |
+# References
+
+## Get all datasets
+
+### HTTP REQUEST
+
+List all datasets available in mangal
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset`
+
+Request specific entry based on the id
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset/:id`
+
+
+### Parameters
+
+| Parameter    | Description | Exemple                                                                      |
+|--------------|---------|----------------------------------------------------------------------------------|
+| q | false   | If set to true, the result will also include cats.                               |
+| sort    | true    | If set to false, the result will include kittens that have already been adopted. |
+| page    | true    | If set to false, the result will include kittens that have already been adopted. |
+
+# Networks
+
+## Get all datasets
+
+### HTTP REQUEST
+
+List all datasets available in mangal
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset`
+
+Request specific entry based on the id
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset/:id`
+
+
+### Parameters
+
+| Parameter    | Description | Exemple                                                                      |
+|--------------|---------|----------------------------------------------------------------------------------|
+| q | false   | If set to true, the result will also include cats.                               |
+| sort    | true    | If set to false, the result will include kittens that have already been adopted. |
+| page    | true    | If set to false, the result will include kittens that have already been adopted. |
+
+# Nodes
+
+## Get all datasets
+
+### HTTP REQUEST
+
+List all datasets available in mangal
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset`
+
+Request specific entry based on the id
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset/:id`
+
+
+### Parameters
+
+| Parameter    | Description | Exemple                                                                      |
+|--------------|---------|----------------------------------------------------------------------------------|
+| q | false   | If set to true, the result will also include cats.                               |
+| sort    | true    | If set to false, the result will include kittens that have already been adopted. |
+| page    | true    | If set to false, the result will include kittens that have already been adopted. |
+
+# Interactions
+
+## Get all datasets
+
+### HTTP REQUEST
+
+List all datasets available in mangal
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset`
+
+Request specific entry based on the id
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset/:id`
+
+
+### Parameters
+
+| Parameter    | Description | Exemple                                                                      |
+|--------------|---------|----------------------------------------------------------------------------------|
+| q | false   | If set to true, the result will also include cats.                               |
+| sort    | true    | If set to false, the result will include kittens that have already been adopted. |
+| page    | true    | If set to false, the result will include kittens that have already been adopted. |
+
+# Taxonomy
+
+## Get all datasets
+
+### HTTP REQUEST
+
+List all datasets available in mangal
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset`
+
+Request specific entry based on the id
+
+`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset/:id`
+
+
+### Parameters
+
+| Parameter    | Description | Exemple                                                                      |
+|--------------|---------|----------------------------------------------------------------------------------|
+| q | false   | If set to true, the result will also include cats.                               |
+| sort    | true    | If set to false, the result will include kittens that have already been adopted. |
+| page    | true    | If set to false, the result will include kittens that have already been adopted. |
