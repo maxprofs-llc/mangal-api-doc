@@ -11,6 +11,7 @@ The mangal API uses the following error codes
 |-------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | 200       | Successfull response from the API (`GET`, `PUT`, `DELETE`).                                                                          |
 | 201    | The request has been fulfilled, resulting in the creation of a new resource (`POST`).                                                |
+| 401  | Unauthorized API call, user failed to authenticate.                                                                                |
 | 400  | Bad Request, API failed to validate the body content.                                                                                |
 | 404 | Not Found, endpoint doesn't exist.                                                                                                   |
 | 500  | Internal Server Error, problem with our server. Try again later or email the system administrator - steve.vissault[at]usherbrooke.ca |
