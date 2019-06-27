@@ -1,7 +1,7 @@
 theme = "docuapi"
 themesdir = "themes"
 languageCode = "en-us"
-baseurl = "https://mangal-wg/mangal-api/"
+baseurl = "https://mangal-wg/"
 title = "API Documentation - Mangal.io"
 
 # Code higlighting settings
