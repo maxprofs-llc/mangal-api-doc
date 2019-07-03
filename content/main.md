@@ -7,7 +7,7 @@ title: API Reference
 
 [The Mangal project](http://www.mangal.io) aims at archiving published ecological networks and at
 easing their retrieval. The database includes 172 datasets representing over [1300 ecological
-networks](http://poisotlab.biol.umontreal.ca/#/). This documentation is meant to describe all the
+networks](https://mangal.io/#/). This documentation is meant to describe all the
 the endpoints and parameters to developers who would like to use the Mangal RESTFul API. 
 
 # Authentication
@@ -43,10 +43,10 @@ Generic parameters applicable for `GET` method
 
 | Parameter | Description                                                       | Exemple                                                        |
 |-----------|-------------------------------------------------------------------|----------------------------------------------------------------|
-| `q`       | Full search within the table, **only working on string columns**. | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?q=%insect%` |
-| `sort`    | Sort specific column                                              | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?sort=-id`   |
-| `page`    | Request specific page                                             | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?page=0`     |
-| `count`   | Number of entries returned (max. 1000)                            | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?count=50`   |
+| `q`       | Full search within the table, **only working on string columns**. | `https://mangal.io/api/v2/dataset?q=%insect%` |
+| `sort`    | Sort specific column                                              | `https://mangal.io/api/v2/dataset?sort=-id`   |
+| `page`    | Request specific page                                             | `https://mangal.io/api/v2/dataset?page=0`     |
+| `count`   | Number of entries returned (max. 1000)                            | `https://mangal.io/api/v2/dataset?count=50`   |
 
 # References
 
@@ -55,14 +55,14 @@ Generic parameters applicable for `GET` method
 ```javascript
 import axios
 
-axio.get('http://poisotlab.biol.umontreal.ca/api/v2/reference')
+axio.get('https://mangal.io/api/v2/reference')
   .then((res) => {
     console.log(res.data)
   })
 
 ```
 ```shell
-curl "http://poisotlab.biol.umontreal.ca/api/v2/reference"
+curl "https://mangal.io/api/v2/reference"
 ```
 
 > Output exemple
@@ -102,20 +102,20 @@ curl "http://poisotlab.biol.umontreal.ca/api/v2/reference"
 
 List all references available in mangal
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/reference`
+`GET https://mangal.io/api/v2/reference`
 
 Request specific reference `id`
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/reference/:id`
+`GET https://mangal.io/api/v2/reference/:id`
 
 ### Specific parameters
 
 | Parameter | Description                         | Exemple                                                                   |
 |-----------|-------------------------------------|---------------------------------------------------------------------------|
-| `doi`     | Search by Digital Object Identifier | `http://poisotlab.biol.umontreal.ca/api/v2/reference?doi=10.2307/3683041` |
-| `author`  | Search by first author              | `http://poisotlab.biol.umontreal.ca/api/v2/reference?author=kolpelke`     |
-| `year`    | Search by year of publication       | `http://poisotlab.biol.umontreal.ca/api/v2/reference?year=2007`           |
-| `jstor`   | Search by JSTOR ID                  | `http://poisotlab.biol.umontreal.ca/api/v2/reference?jstor=3683041`       |
+| `doi`     | Search by Digital Object Identifier | `https://mangal.io/api/v2/reference?doi=10.2307/3683041` |
+| `author`  | Search by first author              | `https://mangal.io/api/v2/reference?author=kolpelke`     |
+| `year`    | Search by year of publication       | `https://mangal.io/api/v2/reference?year=2007`           |
+| `jstor`   | Search by JSTOR ID                  | `https://mangal.io/api/v2/reference?jstor=3683041`       |
 
 # Datasets
 
@@ -124,14 +124,14 @@ Request specific reference `id`
 ```javascript
 import axios
 
-axio.get('http://poisotlab.biol.umontreal.ca/api/v2/dataset')
+axio.get('https://mangal.io/api/v2/dataset')
   .then((res) => {
     console.log(res.data)
   })
 
 ```
 ```shell
-curl "http://poisotlab.biol.umontreal.ca/api/v2/dataset"
+curl "https://mangal.io/api/v2/dataset"
 ```
 
 > Output exemple
@@ -167,20 +167,20 @@ curl "http://poisotlab.biol.umontreal.ca/api/v2/dataset"
 
 List all datasets available in mangal
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset`
+`GET https://mangal.io/api/v2/dataset`
 
 Request specific dataset `id`
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/dataset/:id`
+`GET https://mangal.io/api/v2/dataset/:id`
 
 ### Specific parameters
 
 | Parameter     | Description                                            | Exemple                                                                     |
 |---------------|--------------------------------------------------------|-----------------------------------------------------------------------------|
-| `name`        | Search by unique name (`firstAuthor_pubYear`)          | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?name=howking_1968`       |
-| `date`        | Search by creation date -- format `YYYY-mm-dd`         | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?date=1963-06-01`         |
-| `description` | Full text search in description                        | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?description=%Ellesmere%` |
-| `ref_id`      | Retrieve all datasets attached to a specific reference | `http://poisotlab.biol.umontreal.ca/api/v2/dataset?ref_id=7`                |
+| `name`        | Search by unique name (`firstAuthor_pubYear`)          | `https://mangal.io/api/v2/dataset?name=howking_1968`       |
+| `date`        | Search by creation date -- format `YYYY-mm-dd`         | `https://mangal.io/api/v2/dataset?date=1963-06-01`         |
+| `description` | Full text search in description                        | `https://mangal.io/api/v2/dataset?description=%Ellesmere%` |
+| `ref_id`      | Retrieve all datasets attached to a specific reference | `https://mangal.io/api/v2/dataset?ref_id=7`                |
 
 
 # Networks
@@ -190,14 +190,14 @@ Request specific dataset `id`
 ```javascript
 import axios
 
-axio.get('http://poisotlab.biol.umontreal.ca/api/v2/network')
+axio.get('https://mangal.io/api/v2/network')
   .then((res) => {
     console.log(res.data)
   })
 
 ```
 ```shell
-curl "http://poisotlab.biol.umontreal.ca/api/v2/network"
+curl "https://mangal.io/api/v2/network"
 ```
 
 > Output exemple
@@ -268,19 +268,19 @@ curl "http://poisotlab.biol.umontreal.ca/api/v2/network"
 
 List all networks available in mangal
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/network`
+`GET https://mangal.io/api/v2/network`
 
 Request specific network `id`
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/network/:id`
+`GET https://mangal.io/api/v2/network/:id`
 
 ### Specific parameters
 
 | Parameter          | Description                                                                | Exemple                                                                   |
 |--------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| `public`           | The network is publicly available                                          | `http://poisotlab.biol.umontreal.ca/api/v2/network?public=false`          |
-| `all_interactions` | If `true`, absence of interactions can be considered as real/true absences | `http://poisotlab.biol.umontreal.ca/api/v2/network?all_interactions=true` |
-| `dataset_id`       | Retrieve all networks attached to a specific dataset                       | `http://poisotlab.biol.umontreal.ca/api/v2/network?dataset_id=12`         |
+| `public`           | The network is publicly available                                          | `https://mangal.io/api/v2/network?public=false`          |
+| `all_interactions` | If `true`, absence of interactions can be considered as real/true absences | `https://mangal.io/api/v2/network?all_interactions=true` |
+| `dataset_id`       | Retrieve all networks attached to a specific dataset                       | `https://mangal.io/api/v2/network?dataset_id=12`         |
 
 
 # Nodes
@@ -290,14 +290,14 @@ Request specific network `id`
 ```javascript
 import axios
 
-axio.get('http://poisotlab.biol.umontreal.ca/api/v2/node')
+axio.get('https://mangal.io/api/v2/node')
   .then((res) => {
     console.log(res.data)
   })
 
 ```
 ```shell
-curl "http://poisotlab.biol.umontreal.ca/api/v2/node"
+curl "https://mangal.io/api/v2/node"
 ```
 
 > Output exemple
@@ -355,11 +355,11 @@ curl "http://poisotlab.biol.umontreal.ca/api/v2/node"
 
 List all nodes available in mangal
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/node`
+`GET https://mangal.io/api/v2/node`
 
 Request specific node `id`
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/node/:id`
+`GET https://mangal.io/api/v2/node/:id`
 
 <aside class="success">
 <code>/node</code> will always return also <code>/taxonomy</code>. The nested <code>taxonomy</code> JSON referred to the taxonomic informations of the node.
@@ -369,9 +369,9 @@ Request specific node `id`
 
 | Parameter          | Description                                                                | Exemple                                                                   |
 |--------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| `original_name`           | Search by taxon or IDs defined by the original author of the publication (exact match)                                     | `http://poisotlab.biol.umontreal.ca/api/v2/node?original_name=insects`          |
-| `node_level` | Search by sampling unit with 3 options: population, taxon, individu | `http://poisotlab.biol.umontreal.ca/api/v2/node?node_level=population` |
-| `network_id`       | Retrieve all nodes attached to a specific network                       | `http://poisotlab.biol.umontreal.ca/api/v2/node?network_id=926`         |
+| `original_name`           | Search by taxon or IDs defined by the original author of the publication (exact match)                                     | `https://mangal.io/api/v2/node?original_name=insects`          |
+| `node_level` | Search by sampling unit with 3 options: population, taxon, individu | `https://mangal.io/api/v2/node?node_level=population` |
+| `network_id`       | Retrieve all nodes attached to a specific network                       | `https://mangal.io/api/v2/node?network_id=926`         |
 
 
 # Interactions
@@ -381,14 +381,14 @@ Request specific node `id`
 ```javascript
 import axios
 
-axio.get('http://poisotlab.biol.umontreal.ca/api/v2/interaction')
+axio.get('https://mangal.io/api/v2/interaction')
   .then((res) => {
     console.log(res.data)
   })
 
 ```
 ```shell
-curl "http://poisotlab.biol.umontreal.ca/api/v2/interaction"
+curl "https://mangal.io/api/v2/interaction"
 ```
 
 > Output exemple
@@ -450,11 +450,11 @@ curl "http://poisotlab.biol.umontreal.ca/api/v2/interaction"
 
 List all interactions available in mangal
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/interaction`
+`GET https://mangal.io/api/v2/interaction`
 
 Request specific interaction `id`
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/interaction/:id`
+`GET https://mangal.io/api/v2/interaction/:id`
 
 <aside class="success">
 <code>/interaction</code> will always return also <code>/attribute</code> used to quantify the strength of the interaction. <code>attribute.name</code> is the variable associated with <code>value</code> in the interaction table.
@@ -464,12 +464,12 @@ Request specific interaction `id`
 
 | Parameter          | Description     | Exemple                                                                   |
 |--------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| `node_from` | Search by node id which the interaction originate from (e.g. predator) | `http://poisotlab.biol.umontreal.ca/api/v2/interaction?node_from=24628` |
-| `node_to` | Search by node id which the interaction end to (e.g. prey) | `http://poisotlab.biol.umontreal.ca/api/v2/interaction?node_to=24633` |
-| `direction`           | Search by edge direction. 3 options: directed, undirected or unknown                                     | `http://poisotlab.biol.umontreal.ca/api/v2/interaction?direction=unknown`          |
-| `type` | Search by ecological interaction types from the following options: competition, amensalism, neutralism, commensalism, mutualism, parasitism, predation, herbivory, symbiosis, scavenger, detritivore, unspecified, consumption  | `http://poisotlab.biol.umontreal.ca/api/v2/interaction?type=predation` |
-| `attr_id`       | Retrieve all interactions described by a specific attribute                 | `http://poisotlab.biol.umontreal.ca/api/v2/interaction?attr_id=25`         |
-| `network_id`       | Retrieve all interactions attached to a specific network                       | `http://poisotlab.biol.umontreal.ca/api/v2/interaction?network_id=926`         |
+| `node_from` | Search by node id which the interaction originate from (e.g. predator) | `https://mangal.io/api/v2/interaction?node_from=24628` |
+| `node_to` | Search by node id which the interaction end to (e.g. prey) | `https://mangal.io/api/v2/interaction?node_to=24633` |
+| `direction`           | Search by edge direction. 3 options: directed, undirected or unknown                                     | `https://mangal.io/api/v2/interaction?direction=unknown`          |
+| `type` | Search by ecological interaction types from the following options: competition, amensalism, neutralism, commensalism, mutualism, parasitism, predation, herbivory, symbiosis, scavenger, detritivore, unspecified, consumption  | `https://mangal.io/api/v2/interaction?type=predation` |
+| `attr_id`       | Retrieve all interactions described by a specific attribute                 | `https://mangal.io/api/v2/interaction?attr_id=25`         |
+| `network_id`       | Retrieve all interactions attached to a specific network                       | `https://mangal.io/api/v2/interaction?network_id=926`         |
 
 
 # Taxonomy
@@ -479,14 +479,14 @@ Request specific interaction `id`
 ```javascript
 import axios
 
-axio.get('http://poisotlab.biol.umontreal.ca/api/v2/taxonomy')
+axio.get('https://mangal.io/api/v2/taxonomy')
   .then((res) => {
     console.log(res.data)
   })
 
 ```
 ```shell
-curl "http://poisotlab.biol.umontreal.ca/api/v2/taxonomy"
+curl "https://mangal.io/api/v2/taxonomy"
 ```
 
 > Output exemple
@@ -537,25 +537,25 @@ curl "http://poisotlab.biol.umontreal.ca/api/v2/taxonomy"
 
 List all taxonomy items available in mangal
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/taxonomy`
+`GET https://mangal.io/api/v2/taxonomy`
 
 Request specific taxonomic `id`
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/taxonomy/:id`
+`GET https://mangal.io/api/v2/taxonomy/:id`
 
 
 ### Specific parameters
 
 | Parameter          | Description     | Exemple                                                                   |
 |--------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| `name` | Search by taxonomic name (exact match) | `http://poisotlab.biol.umontreal.ca/api/v2/taxonomy?name=Uria aalge` |
-| `ncbi` | Search by unique taxonomic identifier from [National Center for Biotechnology Information](https://www.ncbi.nlm.nih.gov/) | `http://poisotlab.biol.umontreal.ca/api/v2/taxonomy?ncbi=13746` |
-| `tsn`           | Search by unique taxonomic identifier from [Integrated Taxonomic Information Sytem](https://www.itis.gov/) | `http://poisotlab.biol.umontreal.ca/api/v2/taxonomy?tsn=176974`          |
-| `eol` | Search by unique taxonomic identifier from [Encyclopedia of Life](https://eol.org/) | `http://poisotlab.biol.umontreal.ca/api/v2/taxonomy?eol=583072` |
-| `bold`       | Search by unique taxonomic identifier from [Barcode of Life](http://www.boldsystems.org/)               | `http://poisotlab.biol.umontreal.ca/api/v2/taxonomy?bold=10149`         |
-| `gbif`       | Search by unique taxonomic identifier from [Global Biodiversity Information Facility](https://www.gbif.org/)                      | `http://poisotlab.biol.umontreal.ca/api/v2/taxonomy?gbif=2481342`         |
-| `col`       | Search by unique taxonomic identifier from [Catalogue of Life](https://www.catalogueoflife.org/)                       | `http://poisotlab.biol.umontreal.ca/api/v2/taxonomy?col=1f21d6d69cb8c09be9a27485d68bc4d1`         |
-| `rank`       | Retrieve all nodes with a specific taxonomic resolution from the list: kingdom, subkingdom, infrakingdom, superdivision, division, subdivision, phylum, class, superorder, order, superfamily, family, genus, subgenus, species, infraspecies                  | `http://poisotlab.biol.umontreal.ca/api/v2/taxonomy?rank=class`         |
+| `name` | Search by taxonomic name (exact match) | `https://mangal.io/api/v2/taxonomy?name=Uria aalge` |
+| `ncbi` | Search by unique taxonomic identifier from [National Center for Biotechnology Information](https://www.ncbi.nlm.nih.gov/) | `https://mangal.io/api/v2/taxonomy?ncbi=13746` |
+| `tsn`           | Search by unique taxonomic identifier from [Integrated Taxonomic Information Sytem](https://www.itis.gov/) | `https://mangal.io/api/v2/taxonomy?tsn=176974`          |
+| `eol` | Search by unique taxonomic identifier from [Encyclopedia of Life](https://eol.org/) | `https://mangal.io/api/v2/taxonomy?eol=583072` |
+| `bold`       | Search by unique taxonomic identifier from [Barcode of Life](http://www.boldsystems.org/)               | `https://mangal.io/api/v2/taxonomy?bold=10149`         |
+| `gbif`       | Search by unique taxonomic identifier from [Global Biodiversity Information Facility](https://www.gbif.org/)                      | `https://mangal.io/api/v2/taxonomy?gbif=2481342`         |
+| `col`       | Search by unique taxonomic identifier from [Catalogue of Life](https://www.catalogueoflife.org/)                       | `https://mangal.io/api/v2/taxonomy?col=1f21d6d69cb8c09be9a27485d68bc4d1`         |
+| `rank`       | Retrieve all nodes with a specific taxonomic resolution from the list: kingdom, subkingdom, infrakingdom, superdivision, division, subdivision, phylum, class, superorder, order, superfamily, family, genus, subgenus, species, infraspecies                  | `https://mangal.io/api/v2/taxonomy?rank=class`         |
 
 # Attributes
 
@@ -564,14 +564,14 @@ Request specific taxonomic `id`
 ```javascript
 import axios
 
-axio.get('http://poisotlab.biol.umontreal.ca/api/v2/attribute')
+axio.get('https://mangal.io/api/v2/attribute')
   .then((res) => {
     console.log(res.data)
   })
 
 ```
 ```shell
-curl "http://poisotlab.biol.umontreal.ca/api/v2/attribute"
+curl "https://mangal.io/api/v2/attribute"
 ```
 
 > Output exemple
@@ -609,8 +609,8 @@ curl "http://poisotlab.biol.umontreal.ca/api/v2/attribute"
 
 List all attributes items available in mangal
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/attribute`
+`GET https://mangal.io/api/v2/attribute`
 
 Request specific attribute `id`
 
-`GET http://poisotlab.biol.umontreal.ca/api/v2/attribute/:id`
+`GET https://mangal.io/api/v2/attribute/:id`
