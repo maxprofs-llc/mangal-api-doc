@@ -5,7 +5,7 @@ title: API Reference
 
 # Mangal
 
-[The Mangal project](http://www.mangal.io) aims at archiving published ecological networks and at
+[The Mangal project](https://mangal.io) aims at archiving published ecological networks and at
 easing their retrieval. The database includes 172 datasets representing over [1300 ecological
 networks](https://mangal.io/#/). This documentation is meant to describe all the
 the endpoints and parameters to developers who would like to use the Mangal RESTFul API. 
@@ -49,6 +49,22 @@ Generic parameters applicable for `GET` method
 | `count`   | Number of entries returned (max. 1000)                            | `https://mangal.io/api/v2/dataset?count=50`   |
 
 # References
+
+## Table description
+
+Information pertaining to a reference (scientific article, book, online website, etc.) characterizing an original collection of ecological networks. URLs of data and publication sourcesare included as well as persistent identifiers (when available) such as digital object identifiers(DOIs). 
+
+| Field        | Type   | Description                        |
+|--------------|--------|------------------------------------|
+| doi          | `STRING` | DOI of the attached publication    |
+| first_author | `STRING` | firt author name                   |
+| year         | `STRING` | year of publication                |
+| jstor        | `STRING` | JSTOR of the attached publication  |
+| pmid         | `STRING` | PMID of the attached publication   |
+| bibtex       | `TEXT`   | BibTex of the attached publication |
+| paper_url    | `TEXT`   | URL of the attached publication    |
+| data_url   | `TEXT`   | URL of the attached data           |
+
 
 ## GET Method
 
@@ -113,11 +129,23 @@ Request specific reference `id`
 | Parameter | Description                         | Exemple                                                                   |
 |-----------|-------------------------------------|---------------------------------------------------------------------------|
 | `doi`     | Search by Digital Object Identifier | `https://mangal.io/api/v2/reference?doi=10.2307/3683041` |
-| `author`  | Search by first author              | `https://mangal.io/api/v2/reference?author=kolpelke`     |
+| `first_author`  | Search by first author              | `https://mangal.io/api/v2/reference?first_author=kolpelke`     |
 | `year`    | Search by year of publication       | `https://mangal.io/api/v2/reference?year=2007`           |
 | `jstor`   | Search by JSTOR ID                  | `https://mangal.io/api/v2/reference?jstor=3683041`       |
 
 # Datasets
+
+## Table description
+
+Metadata of the datasets attached to a reference. It includes a general description of the networks.
+
+| Field       | Type       | Description                          |
+|-------------|------------|--------------------------------------|
+| name        | `STRING`   | Name of the collected dataset        |
+| date        | `DATEONLY` | Collection date                      |
+| description | `TEXT`     | Description of the dataset collected |
+| public      | `BOOLEAN`  | Is this available publicly           |
+| ref_id | `INTEGER`  | Foreign key - link table entries to references table  |
 
 ## GET Method
 
@@ -184,6 +212,20 @@ Request specific dataset `id`
 
 
 # Networks
+
+## Table description
+
+Metadata of the networks attached to a dataset. It provides the sampling location, date and specific description of the network.
+
+| Field            | Type       | Description                                                       |
+|------------------|------------|-------------------------------------------------------------------|
+| name             | `STRING`   | Name of the collected network                                     |
+| date             | `DATEONLY` | Collection date                                                   |
+| geom             | `GeoJSON`  | location (any features: point, multipolygons etc.) of the network |
+| description      | `TEXT`     | Description of the network collected                              |
+| public           | `BOOLEAN`  | Is this network is available publicly?                            |
+| all_interactions | `BOOLEAN`  | Is the network recording ALL presence AND absence of interactions |
+| dataset_id | `INTEGER`  | Foreign key - link table entries to datasets table  |
 
 ## GET Method
 
@@ -285,6 +327,17 @@ Request specific network `id`
 
 # Nodes
 
+## Table description
+
+Information on the population, taxa or individu in the network. Each node has the original taxon name documented and taxonomic backbone provided in taxonomy.
+
+| Field        | Type   | Description                        |
+|--------------|--------|------------------------------------|
+| original_name          | `STRING` | Name of the recorded taxon in the publication    |
+| node_level | `ENUM` | Level of the node either taxon, population or individual involved in the interaction                |
+| network_id         | `INTEGER` | Foreign key - link table entries to networks table |
+| taxonomy_id        | `INTEGER` | Foreign key - link table entries to taxonomy table |
+
 ## GET Method
 
 ```javascript
@@ -375,6 +428,23 @@ Request specific node `id`
 
 
 # Interactions
+
+## Table description
+
+| Field      | Type      | Description                                                                                                                                                                           |
+|------------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| node_from  | `INTEGER` | Unique identifier of the first taxon (Foreign key linking to nodes)                                                                                                                   |
+| node_to    | `INTEGER` | Unique identifier of the second taxon (Foreign key linking to nodes)                                                                                                                  |
+| date       | `DATE`    | Date of the recorded interaction                                                                                                                                                      |
+| direction  | `ENUM`    | Direction of the interaction either directed, undirected or unknown                                                                                                                   |
+| type       | `ENUM`    | Interaction type either competition, amensalism, neutralism, commensalism, mutualism, parasitism, predation, herbivory, symbiosis, scavenger, detritivore, unspecified or consumption |
+| method     | `STRING`  | Method: observation, biblio, experimental                                                                                                                                             |
+| attr_id    | `INTEGER` | Unique Identifier to retrieve the name of the variable measured (Foreign key linking to attributes table)                                                                             |
+| value      | `FLOAT`   | Value of the attribute                                                                                                                                                                |
+| geom       | `GeoJSON` | Location of the interaction (made for networks spatially explicit)                                                                                                                    |
+| public     | `BOOLEAN` | Is this interaction available publicly?                                                                                                                                               |
+| network_id | `INTEGER` | Foreign key - link table entries to networks table                                                                                                                                    |                                                                                     |
+
 
 ## GET Method
 
